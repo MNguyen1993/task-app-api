@@ -6,6 +6,11 @@ const auth = require('../middleware/auth');
 const { sendWelcomeEmail, sendGoodbyeEmail } = require('../emails/account');
 const router = new express.Router();
 
+// INDEX ROUTE
+router.get('/', (req, res) => {
+	res.send('<h1>Use Postman to send requests to this URL!</h1>');
+});
+
 // USER CREATE ENDPOINT
 router.post('/users', async (req, res) => {
 	const user = new User(req.body);
@@ -99,7 +104,7 @@ router.delete('/users/me', auth, async (req, res) => {
 // Multer config for file upload
 const upload = multer({
 	limits: {
-		fileSize: 1000000
+		fileSize: 1000000,
 	},
 	fileFilter(req, file, cb) {
 		if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -107,7 +112,7 @@ const upload = multer({
 		}
 
 		cb(undefined, true);
-	}
+	},
 });
 
 // USER CREATE/UPDATE/UPLOAD AVATAR
